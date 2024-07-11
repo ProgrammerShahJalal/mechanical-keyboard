@@ -13,7 +13,7 @@ const CustomerReviews = () => {
   };
 
   return (
-    <section className="container mx-auto p-8">
+    <section className="container mx-auto p-8 bg-gradient-to-r from-indigo-200 from-10% via-sky-200 via-30% to-emerald-200 to-90%">
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
         Customer Reviews
       </h2>
@@ -29,7 +29,7 @@ const CustomerReviews = () => {
               <p className="text-lg italic text-center mb-4">
                 "{review.review}"
               </p>
-              <h3 className="text-xl font-bold">{review.name}</h3>
+              <h3 className="text-xl font-bold pb-5">{review.name}</h3>
             </div>
           </div>
         ))}
