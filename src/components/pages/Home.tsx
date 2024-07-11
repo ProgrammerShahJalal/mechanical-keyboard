@@ -4,6 +4,8 @@ import Service from "../Service";
 import TopFeaturedBrands from "../TopFeaturedBrands";
 import FeaturedProducts from "../FeaturedProducts";
 import CustomerReviews from "../CustomerReviews";
+import WhyChooseMechanicalKeyboards from "../WhyChooseMechanicalKeyboards";
+import CustomizableOptions from "../CustomizableOptions";
 
 const Home = () => {
   return (
@@ -13,6 +15,8 @@ const Home = () => {
       <FeaturedProducts />
       <TopFeaturedBrands />
       <CustomerReviews />
+      <WhyChooseMechanicalKeyboards />
+      <CustomizableOptions />
     </div>
   );
 };

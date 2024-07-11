@@ -2,7 +2,7 @@ import brands from "../data/brands.json";
 
 const TopFeaturedBrands = () => {
   return (
-    <section className="container mx-auto p-8">
+    <section className="container mx-auto p-8 mb-24">
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
         Top Featured Brands
       </h2>
