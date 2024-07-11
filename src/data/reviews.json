@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "image": "https://example.com/john-doe.jpg",
+    "review": "This is an amazing product! It has changed my life for the better."
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "image": "https://example.com/jane-smith.jpg",
+    "review": "I love this product! The quality is outstanding and the customer service is excellent."
+  },
+  {
+    "id": 3,
+    "name": "Sam Wilson",
+    "image": "https://example.com/sam-wilson.jpg",
+    "review": "Highly recommended! Great value for the price."
+  }
+]

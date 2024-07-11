@@ -3,6 +3,7 @@ import { useGetProductsQuery } from "../../redux/api/productApi";
 import { Product } from "../utils/interfaces";
 import "@lottiefiles/lottie-player";
 import { useEffect } from "react";
+import { MdStar, MdStarHalf, MdStarBorder } from "react-icons/md";
 
 const Products = () => {
   //To ensure that the page loads from the top when you navigate to the page
@@ -11,10 +12,10 @@ const Products = () => {
   }, []);
 
   const { data: products, error, isLoading } = useGetProductsQuery(undefined);
-
+  // LOADING ANIMATION FOR PRODUCT FETCHING
   if (isLoading) {
     return (
-      <div className="grid gap-1 grid-cols-1 justify-items-center	">
+      <div className="grid gap-1 grid-cols-1 justify-items-center">
         <lottie-player
           src="https://lottie.host/0fea4ce6-8b86-47f0-89dd-fabfdeda9fbc/P8PHWLK1QD.json"
           background="##ffffff"
@@ -29,10 +30,10 @@ const Products = () => {
       </div>
     );
   }
-
+  //ERROR HANDLING
   if (error) {
     return (
-      <div className="grid gap-1 grid-cols-1 justify-items-center	">
+      <div className="grid gap-1 grid-cols-1 justify-items-center">
         <p className="text-center">
           🤖
           <br />
@@ -43,7 +44,7 @@ const Products = () => {
       </div>
     );
   }
-
+  // NO PRODUCT AVAILABLE MESSAGE
   if (!products?.data?.length) {
     return (
       <div>
@@ -53,9 +54,35 @@ const Products = () => {
       </div>
     );
   }
+  // RATING REPRESENTATION FOR FULL, PARTIAL, HALF, ALMOSTFULL, EMPTY STAR
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const partialStar = rating % 1;
+    const halfStars = partialStar >= 0.25 && partialStar < 0.75 ? 1 : 0;
+    const almostFullStar = partialStar >= 0.75 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStars - almostFullStar;
+
+    return (
+      <div className="flex items-center">
+        {[...Array(fullStars)].map((_, index) => (
+          <MdStar key={`full-${index}`} className="text-yellow-500" />
+        ))}
+        {halfStars === 1 && <MdStarHalf className="text-yellow-500" />}
+        {almostFullStar === 1 && (
+          <MdStarHalf
+            style={{ transform: "rotate(180deg)" }}
+            className="text-yellow-500"
+          />
+        )}
+        {[...Array(emptyStars)].map((_, index) => (
+          <MdStarBorder key={`empty-${index}`} className="text-yellow-500" />
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div className=" container mx-auto p-8">
+    <div className="container mx-auto p-8">
       <h2 className="text-2xl font-bold mb-4">Products</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {products.data.map((product: Product) => (
@@ -69,7 +96,12 @@ const Products = () => {
             <p>Brand: {product.brand}</p>
             <p>Available Quantity: {product.availableQuantity}</p>
             <p>Price: ${product.price}</p>
-            <p>Rating: {product.rating} Stars</p>
+            <div className="flex items-center">
+              {renderStars(product.rating)}
+              <span className="ml-2 text-lg font-semibold">
+                ({product.rating.toFixed(1)})
+              </span>
+            </div>
             <Link to={`/products/${product._id}`}>
               <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
                 Show Details

@@ -1,4 +1,4 @@
-import brands from "./utils/brands.json";
+import brands from "../data/brands.json";
 
 const TopFeaturedBrands = () => {
   return (

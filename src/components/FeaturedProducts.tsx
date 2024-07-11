@@ -5,7 +5,12 @@ import { Product } from "./utils/interfaces";
 import { setFeaturedProducts } from "../redux/features/productSlice";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
-import { MdOutlineReadMore } from "react-icons/md";
+import {
+  MdOutlineReadMore,
+  MdStar,
+  MdStarHalf,
+  MdStarBorder,
+} from "react-icons/md";
 import { RootState } from "../redux/store";
 
 const FeaturedProducts = () => {
@@ -17,16 +22,15 @@ const FeaturedProducts = () => {
 
   useEffect(() => {
     if (products && Array.isArray(products.data)) {
-      // Creating a new array before sorting to avoid modifying the original array
       const sortedProducts = [...products.data].sort(
         (a: Product, b: Product) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
-      const featured = sortedProducts.slice(0, 6); // taking the latest 6 products as featured
+      const featured = sortedProducts.slice(0, 6);
       dispatch(setFeaturedProducts(featured));
     }
   }, [products, dispatch]);
-
+  // LOADING ANIMATION FOR PRODUT FETCHING
   if (isLoading) {
     return (
       <div className="grid gap-1 grid-cols-1 justify-items-center">
@@ -44,7 +48,7 @@ const FeaturedProducts = () => {
       </div>
     );
   }
-
+  //ERROR HANDLING
   if (error) {
     return (
       <div className="grid gap-1 grid-cols-1 justify-items-center">
@@ -58,6 +62,33 @@ const FeaturedProducts = () => {
       </div>
     );
   }
+
+  // RATING ENHACHING FOR FULL, PARTIAL, HALF, ALMOSTFULL, EMPTY START
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const partialStar = rating % 1;
+    const halfStars = partialStar >= 0.25 && partialStar < 0.75 ? 1 : 0;
+    const almostFullStar = partialStar >= 0.75 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStars - almostFullStar;
+
+    return (
+      <div className="flex items-center">
+        {[...Array(fullStars)].map((_, index) => (
+          <MdStar key={`full-${index}`} className="text-yellow-500" />
+        ))}
+        {halfStars === 1 && <MdStarHalf className="text-yellow-500" />}
+        {almostFullStar === 1 && (
+          <MdStarHalf
+            style={{ transform: "rotate(180deg)" }}
+            className="text-yellow-500"
+          />
+        )}
+        {[...Array(emptyStars)].map((_, index) => (
+          <MdStarBorder key={`empty-${index}`} className="text-yellow-500" />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <section className="container mx-auto p-8">
@@ -76,7 +107,12 @@ const FeaturedProducts = () => {
             <p>Brand: {product.brand}</p>
             <p>Available Quantity: {product.availableQuantity}</p>
             <p>Price: ${product.price}</p>
-            <p>Rating: {product.rating} Stars</p>
+            <div className="flex items-center">
+              {renderStars(product.rating)}
+              <span className="ml-2 text-lg font-semibold">
+                ({product.rating.toFixed(1)})
+              </span>
+            </div>
             <Link to={`/products/${product._id}`}>
               <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
                 Show Details
