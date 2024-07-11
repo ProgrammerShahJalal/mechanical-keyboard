@@ -4,6 +4,7 @@ import {
   updateCartQuantity,
 } from "../../redux/features/cartSlice";
 import { RootState } from "../../redux/store";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,30 @@ const Cart = () => {
   const handleQuantityChange = (id: string, quantity: number) => {
     dispatch(updateCartQuantity({ id, quantity }));
   };
+
+  if (cartItems.length === 0) {
+    return (
+      <div className="grid gap-4 grid-cols-1 justify-items-center	">
+        <img
+          width={160}
+          height={160}
+          src=" https://i.ibb.co/MNdqpvP/icon-empty-cart.png"
+          alt="empty-cart-icon"
+        />
+        <h1 className="md:text-3xl text-base font-semibold">
+          Your Cart is Empty!
+        </h1>
+        <p className="text-sm font-medium">
+          Looks like you haven't made order yet. Add some items to your cart.
+        </p>
+        <Link to="/products">
+          <button className="bg-primary text-white font-semibold py-2 px-4 rounded-md">
+            Continue Shopping
+          </button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-8">

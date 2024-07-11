@@ -5,6 +5,7 @@ import { RootState } from "../../redux/store";
 import { useGetProductsQuery } from "../../redux/api/productApi";
 import { Link } from "react-router-dom";
 import { Product } from "../utils/interfaces";
+import "@lottiefiles/lottie-player";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,21 @@ const Home = () => {
   }, [products, dispatch]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="grid gap-1 grid-cols-1 justify-items-center	">
+        <lottie-player
+          src="https://lottie.host/0fea4ce6-8b86-47f0-89dd-fabfdeda9fbc/P8PHWLK1QD.json"
+          background="##ffffff"
+          speed="1"
+          style={{ width: "150px", height: "150px" }}
+          loop
+          autoplay
+          direction="1"
+          mode="normal"
+        ></lottie-player>
+        <p className="text-lg font-medium">Loading...</p>
+      </div>
+    );
   }
 
   if (error) {
@@ -29,8 +44,8 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <section className="bg-gray-100 p-8 text-center">
+    <div className="bg-gray-100">
+      <section className="p-8 text-center">
         <h1 className="text-4xl font-bold mb-4">
           Welcome to Mechanical Keyboard Shop
         </h1>
