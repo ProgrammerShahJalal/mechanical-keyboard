@@ -24,19 +24,22 @@ const cartSlice = createSlice({
       if (item) {
         item.quantity += action.payload.quantity;
       } else {
-        state.items.push(action.payload);
+        state.items.push({
+          ...action.payload,
+          quantity: action.payload.quantity || 1,
+        });
       }
-      state.totalPrice += action.payload.price * action.payload.quantity;
+      state.totalPrice = state.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
-      const index = state.items.findIndex(
-        (item) => item._id === action.payload
+      state.items = state.items.filter((item) => item._id !== action.payload);
+      state.totalPrice = state.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
       );
-      if (index !== -1) {
-        state.totalPrice -=
-          state.items[index].price * state.items[index].quantity;
-        state.items.splice(index, 1);
-      }
     },
     updateCartQuantity: (
       state,
@@ -44,9 +47,11 @@ const cartSlice = createSlice({
     ) => {
       const item = state.items.find((item) => item._id === action.payload.id);
       if (item) {
-        state.totalPrice -= item.price * item.quantity;
         item.quantity = action.payload.quantity;
-        state.totalPrice += item.price * item.quantity;
+        state.totalPrice = state.items.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        );
       }
     },
     clearCart: (state) => {

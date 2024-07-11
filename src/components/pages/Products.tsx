@@ -13,11 +13,15 @@ const Products = () => {
     return <div>Error loading products</div>;
   }
 
+  if (!products?.data?.length) {
+    return <div>No products available</div>;
+  }
+
   return (
     <div className="container mx-auto p-8">
       <h2 className="text-2xl font-bold mb-4">Products</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {products?.data?.map((product: Product) => (
+        {products.data.map((product: Product) => (
           <div key={product._id} className="bg-white p-4 shadow rounded">
             <img
               src={product.image}

@@ -4,25 +4,22 @@ import { setFeaturedProducts } from "../../redux/features/productSlice";
 import { RootState } from "../../redux/store";
 import { useGetProductsQuery } from "../../redux/api/productApi";
 import { Link } from "react-router-dom";
+import { Product } from "../utils/interfaces";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const featuredProducts = useSelector(
-    (state: RootState) => state.products.featuredProducts
-  );
+  const featuredProducts =
+    useSelector((state: RootState) => state.products.featuredProducts) || [];
 
   const { data: products, error, isLoading } = useGetProductsQuery(undefined);
 
   useEffect(() => {
     if (products && Array.isArray(products.data)) {
-      const featured = products?.data?.slice(0, 3); // take the first 3 products as featured
+      const featured = products.data.slice(0, 3); // we catn take the first 3 products as featured
       dispatch(setFeaturedProducts(featured));
-    } else {
-      console.error("Products is not an array:", products?.data);
     }
   }, [products, dispatch]);
 
-  console.log("products", featuredProducts[0]);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -45,7 +42,7 @@ const Home = () => {
       <section className="container mx-auto p-8">
         <h2 className="text-2xl font-bold mb-4">Featured Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {featuredProducts.map((product) => (
+          {featuredProducts.map((product: Product) => (
             <div key={product._id} className="bg-white p-4 shadow rounded">
               <img
                 src={product.image}

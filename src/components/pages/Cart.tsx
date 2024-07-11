@@ -35,7 +35,7 @@ const Cart = () => {
               />
               <div>
                 <h3 className="text-xl">{item.name}</h3>
-                <p>Price: ${item.price}</p>
+                <p>Price: ${item.price.toFixed(2)}</p>
                 <p>
                   Quantity:
                   <input
@@ -45,6 +45,7 @@ const Cart = () => {
                       handleQuantityChange(item._id, Number(e.target.value))
                     }
                     className="w-12 ml-2 border px-2 py-1"
+                    min="1"
                   />
                 </p>
               </div>
@@ -59,7 +60,9 @@ const Cart = () => {
         ))}
       </div>
       <div className="text-right mt-8">
-        <h3 className="text-xl font-bold">Total Price: ${totalPrice}</h3>
+        <h3 className="text-xl font-bold">
+          Total Price: ${totalPrice.toFixed(2)}
+        </h3>
         <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4">
           Proceed to Checkout
         </button>

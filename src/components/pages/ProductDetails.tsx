@@ -9,8 +9,9 @@ const ProductDetails = () => {
   const { data: product, error, isLoading } = useGetProductByIdQuery(id);
 
   const handleAddToCart = () => {
-    if (product) {
-      dispatch(addToCart(product));
+    if (product?.data) {
+      console.log("add to cart", product.data);
+      dispatch(addToCart(product.data));
     }
   };
 
@@ -22,38 +23,38 @@ const ProductDetails = () => {
     return <div>Error loading product details</div>;
   }
 
+  if (!product) {
+    return <div>No product found</div>;
+  }
+
+  const { data } = product;
+  const { image, name, brand, availableQuantity, price, rating, description } =
+    data;
+
   return (
     <div className="container mx-auto p-8">
-      {product && (
-        <>
-          <div className="flex flex-col md:flex-row">
-            <img
-              src={product?.data?.image}
-              alt={product?.data?.name}
-              className="w-full md:w-1/2 h-96 object-cover mb-4 md:mb-0"
-            />
-            <div className="md:ml-8">
-              <h2 className="text-2xl font-bold mb-2">{product?.data?.name}</h2>
-              <p className="mb-2">Brand: {product?.data?.brand}</p>
-              <p className="mb-2">
-                Available Quantity: {product?.data?.availableQuantity}
-              </p>
-              <p className="mb-2">Price: ${product?.data?.price}</p>
-              <p className="mb-2">Rating: {product?.data?.rating} Stars</p>
-              <p className="mb-4">{product?.data?.description}</p>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={handleAddToCart}
-                disabled={product?.data?.availableQuantity === 0}
-              >
-                {product?.data?.availableQuantity === 0
-                  ? "Out of Stock"
-                  : "Add to Cart"}
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+      <div className="flex flex-col md:flex-row">
+        <img
+          src={image}
+          alt={name}
+          className="w-full md:w-1/2 h-96 object-cover mb-4 md:mb-0"
+        />
+        <div className="md:ml-8">
+          <h2 className="text-2xl font-bold mb-2">{name}</h2>
+          <p className="mb-2">Brand: {brand}</p>
+          <p className="mb-2">Available Quantity: {availableQuantity}</p>
+          <p className="mb-2">Price: ${price}</p>
+          <p className="mb-2">Rating: {rating} Stars</p>
+          <p className="mb-4">{description}</p>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={handleAddToCart}
+            disabled={availableQuantity === 0}
+          >
+            {availableQuantity === 0 ? "Out of Stock" : "Add to Cart"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

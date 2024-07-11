@@ -6,6 +6,7 @@ const Navbar = () => {
   const cartItemCount = useSelector(
     (state: RootState) => state.cart.items.length
   );
+  console.log("cartItemCount", cartItemCount);
 
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
