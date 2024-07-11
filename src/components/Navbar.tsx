@@ -17,7 +17,9 @@ const Navbar = () => {
     <nav className="bg-white text-black p-4 flex justify-between items-center">
       <div>
         <Link to="/" className="text-xl font-bold">
-          MK Shop
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-500">
+            MK SHOP
+          </span>
         </Link>
       </div>
       <div className="hidden md:flex space-x-4">

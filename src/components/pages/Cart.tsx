@@ -21,7 +21,7 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="grid gap-4 grid-cols-1 justify-items-center	">
+      <div className="grid gap-4 grid-cols-1 justify-items-center	pt-12">
         <img
           width={160}
           height={160}

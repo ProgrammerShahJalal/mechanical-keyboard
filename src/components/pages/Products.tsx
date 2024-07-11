@@ -49,7 +49,7 @@ const Products = () => {
   }
 
   return (
-    <div className="bg-gray-100 container mx-auto p-8">
+    <div className=" container mx-auto p-8">
       <h2 className="text-2xl font-bold mb-4">Products</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {products.data.map((product: Product) => (

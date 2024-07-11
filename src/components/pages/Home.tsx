@@ -6,6 +6,7 @@ import { useGetProductsQuery } from "../../redux/api/productApi";
 import { Link } from "react-router-dom";
 import { Product } from "../utils/interfaces";
 import "@lottiefiles/lottie-player";
+import Hero from "../Hero";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -54,15 +55,8 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-gray-100">
-      <section className="p-8 text-center">
-        <h1 className="text-4xl font-bold mb-4">
-          Welcome to Mechanical Keyboard Shop
-        </h1>
-        <p className="text-xl">
-          Explore the best mechanical keyboards available
-        </p>
-      </section>
+    <div>
+      <Hero />
 
       <section className="container mx-auto p-8">
         <h2 className="text-2xl font-bold mb-4">Featured Products</h2>

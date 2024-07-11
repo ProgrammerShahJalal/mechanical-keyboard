@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white p-4 mt-4">
+    <footer className="bg-gray-800 text-white p-4 mt-10">
       <div className="container mx-auto text-center">
         <p>Contact us at: info@mechanical-keyboard-shop.com</p>
         <p>Follow us on social media</p>
