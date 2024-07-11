@@ -2,8 +2,15 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGetProductByIdQuery } from "../../redux/api/productApi";
 import { addToCart } from "../../redux/features/cartSlice";
+import "@lottiefiles/lottie-player";
+import { useEffect } from "react";
 
 const ProductDetails = () => {
+  //To ensure that the page loads from the top when you navigate to the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
   const { data: product, error, isLoading } = useGetProductByIdQuery(id);
@@ -16,7 +23,21 @@ const ProductDetails = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="grid gap-1 grid-cols-1 justify-items-center">
+        <lottie-player
+          src="https://lottie.host/0fea4ce6-8b86-47f0-89dd-fabfdeda9fbc/P8PHWLK1QD.json"
+          background="##ffffff"
+          speed="1"
+          style={{ width: "150px", height: "150px" }}
+          loop
+          autoplay
+          direction="1"
+          mode="normal"
+        ></lottie-player>
+        <p className="text-lg font-medium">Loading...</p>
+      </div>
+    );
   }
 
   if (error) {

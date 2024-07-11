@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Logitech",
+    "logo": "https://i.ibb.co/cg7rkvT/82065057-98731e80-969b-11ea-9af0-ea4097e25292.png"
+  },
+  {
+    "id": 2,
+    "name": "Corsair",
+    "logo": "https://i.ibb.co/drwVTsn/images.png"
+  },
+  {
+    "id": 3,
+    "name": "Razer",
+    "logo": "https://i.ibb.co/SV8fCJh/download.png"
+  },
+  {
+    "id": 4,
+    "name": "SteelSeries",
+    "logo": "https://i.ibb.co/kSD4r05/download.png"
+  }
+]

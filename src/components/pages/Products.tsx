@@ -2,8 +2,14 @@ import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../../redux/api/productApi";
 import { Product } from "../utils/interfaces";
 import "@lottiefiles/lottie-player";
+import { useEffect } from "react";
 
 const Products = () => {
+  //To ensure that the page loads from the top when you navigate to the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { data: products, error, isLoading } = useGetProductsQuery(undefined);
 
   if (isLoading) {
