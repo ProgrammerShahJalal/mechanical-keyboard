@@ -67,7 +67,7 @@ const Navbar = () => {
         </button>
       </div>
       {menuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-md z-50">
+        <div className="md:hidden absolute top-16 right-0 bg-white shadow-md z-50">
           <div className="flex flex-col items-center space-y-4 p-4">
             <Link to="/" className="hover:underline" onClick={toggleMenu}>
               Home
