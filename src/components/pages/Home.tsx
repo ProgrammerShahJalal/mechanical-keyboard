@@ -40,7 +40,17 @@ const Home = () => {
   }
 
   if (error) {
-    return <div>Error loading products</div>;
+    return (
+      <div className="grid gap-1 grid-cols-1 justify-items-center	">
+        <p className="text-center">
+          🤖
+          <br />
+          We are currently experiencing a technical difficulty loading products.{" "}
+          <br />
+          We apologize for any inconvenience this may cause.
+        </p>
+      </div>
+    );
   }
 
   return (

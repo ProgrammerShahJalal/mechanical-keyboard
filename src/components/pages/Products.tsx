@@ -25,11 +25,27 @@ const Products = () => {
   }
 
   if (error) {
-    return <div>Error loading products</div>;
+    return (
+      <div className="grid gap-1 grid-cols-1 justify-items-center	">
+        <p className="text-center">
+          🤖
+          <br />
+          We are currently experiencing a technical difficulty loading products.{" "}
+          <br />
+          We apologize for any inconvenience this may cause.
+        </p>
+      </div>
+    );
   }
 
   if (!products?.data?.length) {
-    return <div>No products available</div>;
+    return (
+      <div>
+        <p className="text-center">
+          No products available, We are currently out of stock for all products.
+        </p>
+      </div>
+    );
   }
 
   return (
