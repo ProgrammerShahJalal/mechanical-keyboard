@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Product } from "../utils/interfaces";
 import "@lottiefiles/lottie-player";
 import Hero from "../Hero";
+import Service from "../Service";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <Service />
 
       <section className="container mx-auto p-8">
         <h2 className="text-2xl font-bold mb-4">Featured Products</h2>
