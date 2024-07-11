@@ -45,9 +45,12 @@ const Navbar = () => {
             src="https://i.ibb.co/vHDzD3b/cart.png"
             alt="cart icon"
           />
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
-            {cartItemCount}
-          </span>
+          {/* Display cart item count */}
+          {cartItemCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+              {cartItemCount}
+            </span>
+          )}
         </Link>
       </div>
       <div className="md:hidden">
@@ -109,9 +112,12 @@ const Navbar = () => {
                 src="https://i.ibb.co/vHDzD3b/cart.png"
                 alt="cart icon"
               />
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
-                {cartItemCount}
-              </span>
+              {/* Display cart item count */}
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                  {cartItemCount}
+                </span>
+              )}
             </Link>
           </div>
         </div>

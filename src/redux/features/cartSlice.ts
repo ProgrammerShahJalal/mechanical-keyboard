@@ -21,14 +21,25 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
       const item = state.items.find((item) => item._id === action.payload._id);
+      const availableStock = action.payload.availableQuantity || 0;
+
       if (item) {
-        item.quantity += action.payload.quantity;
+        const newQuantity = item.quantity + action.payload.quantity;
+        if (newQuantity <= availableStock) {
+          item.quantity = newQuantity;
+        } else {
+          // Handle exceeding stock scenario (e.g., show an error message)
+          console.error("Cannot add more items than available stock");
+        }
       } else {
-        state.items.push({
-          ...action.payload,
-          quantity: action.payload.quantity || 1,
-        });
+        const newQuantity = action.payload.quantity || 1;
+        if (newQuantity <= availableStock) {
+          state.items.push({ ...action.payload, quantity: newQuantity });
+        } else {
+          // Handle exceeding stock scenario (e.g., show an error message)
+        }
       }
+
       state.totalPrice = state.items.reduce(
         (total, item) => total + item.price * item.quantity,
         0
