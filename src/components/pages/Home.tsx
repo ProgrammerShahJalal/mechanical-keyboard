@@ -30,7 +30,7 @@ const Home = () => {
 
   return (
     <div>
-      <section className="bg-gray-200 p-8 text-center">
+      <section className="bg-gray-100 p-8 text-center">
         <h1 className="text-4xl font-bold mb-4">
           Welcome to Mechanical Keyboard Shop
         </h1>

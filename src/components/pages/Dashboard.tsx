@@ -37,7 +37,7 @@ const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {products?.map((product: Product) => (
+          {products?.data?.map((product: Product) => (
             <tr key={product._id}>
               <td className="border px-4 py-2">{product.name}</td>
               <td className="border px-4 py-2">{product.brand}</td>
