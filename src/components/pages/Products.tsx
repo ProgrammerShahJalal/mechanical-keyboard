@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useGetProductsQuery } from "../../redux/api/productApi";
 import { Product } from "../utils/interfaces";
 import { MdStar, MdStarHalf, MdStarBorder } from "react-icons/md";
-import "@lottiefiles/lottie-player";
 import { MdClear } from "react-icons/md";
 import { Button } from "antd";
+import { useDebounce } from "../hooks/useDebounce";
 
 const Products = () => {
   const { data: products, error, isLoading } = useGetProductsQuery(undefined);
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 300); // Debounce delay set to 300ms
   const [priceFilter, setPriceFilter] = useState({ min: 0, max: Infinity });
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
@@ -17,6 +18,17 @@ const Products = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // HANDLE SEARCH FUNCTIONALITY WITH DEBOUNCE
+  const filteredProducts = products?.data?.filter((product: Product) => {
+    const nameMatches = product.name
+      .toLowerCase()
+      .includes(debouncedSearchTerm.toLowerCase());
+    const brandMatches = product.brand
+      .toLowerCase()
+      .includes(debouncedSearchTerm.toLowerCase());
+    return nameMatches || brandMatches;
+  });
 
   // LOADING ANIMATION FOR PRODUCT FETCHING
   if (isLoading) {
@@ -53,7 +65,7 @@ const Products = () => {
   }
 
   // NO PRODUCT AVAILABLE MESSAGE
-  if (!products?.data?.length) {
+  if (!filteredProducts?.length) {
     return (
       <div>
         <p className="text-center my-10">
@@ -62,17 +74,6 @@ const Products = () => {
       </div>
     );
   }
-
-  // HANDLE SEARCH FUNCTIONALITY
-  const filteredProducts = products.data.filter((product: Product) => {
-    const nameMatches = product.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const brandMatches = product.brand
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    return nameMatches || brandMatches;
-  });
 
   // HANDLE PRICE FILTER FUNCTIONALITY
   const priceFilteredProducts = filteredProducts.filter((product: Product) => {
