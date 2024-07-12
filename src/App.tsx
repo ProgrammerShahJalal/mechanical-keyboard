@@ -10,6 +10,7 @@ import Checkout from "./components/pages/Checkout";
 import Dashboard from "./components/pages/Dashboard";
 import AboutUs from "./components/pages/AboutUs";
 import ContactUs from "./components/pages/ContactUs";
+import Success from "./components/pages/Success";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/success" element={<Success />} />
           </Routes>
         </main>
         <Footer />

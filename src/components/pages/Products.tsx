@@ -56,7 +56,7 @@ const Products = () => {
   if (!products?.data?.length) {
     return (
       <div>
-        <p className="text-center">
+        <p className="text-center my-10">
           No products available. We are currently out of stock for all products.
         </p>
       </div>
