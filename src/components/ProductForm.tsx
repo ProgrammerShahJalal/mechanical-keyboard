@@ -62,7 +62,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <div>
@@ -72,7 +72,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           name="price"
           value={formData.price}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <div>
@@ -91,7 +91,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           name="availableQuantity"
           value={formData.availableQuantity}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <div>
@@ -101,7 +101,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           name="rating"
           value={formData.rating}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <div>
@@ -111,7 +111,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           name="image"
           value={formData.image}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <div>
@@ -121,7 +121,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           name="brand"
           value={formData.brand}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <button

@@ -96,23 +96,54 @@ const Dashboard = () => {
       )}
       {isDeleteModalOpen && selectedProduct && (
         <Modal onClose={() => setDeleteModalOpen(false)}>
-          <div>
-            <h2>Are you sure you want to delete this product?</h2>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={() => {
-                handleDelete(selectedProduct._id as string);
-                setDeleteModalOpen(false);
-              }}
-            >
-              Confirm
-            </button>
-            <button
-              className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
-              onClick={() => setDeleteModalOpen(false)}
-            >
-              Cancel
-            </button>
+          <div className="text-center my-5 flex flex-col items-center justify-center">
+            {/* //DELETE CONFIRMATION ANIMATION */}
+            <lottie-player
+              src="https://lottie.host/9cb8c987-840f-478e-8dc6-ea8e83f07324/loKa5GirIL.json"
+              background="##FFFFFF"
+              speed="1"
+              style={{ width: "150px", height: "150px" }}
+              loop
+              autoplay
+              direction="1"
+              mode="normal"
+            ></lottie-player>
+            <h2 className="text-xl font-bold my-3 hidden md:block">
+              <span className="text-yellow-500"> Warning: </span>Permanent
+              Product Deletion
+            </h2>
+            <p className="hidden md:block">
+              This action will permanently remove the selected product from our
+              real-time database. <br /> This deletion is irreversible, meaning
+              you will not be able to recover the product's information or
+              associated data once confirmed.
+            </p>
+            <h2 className="text-lg font-semibold my-3">
+              Are you absolutely certain you want to permanently delete this
+              product?
+            </h2>
+            <p>
+              By selecting <span className="font-bold">"Confirm"</span>, you
+              acknowledge the aforementioned consequences and understand this
+              action cannot be reversed.
+            </p>
+            <div className="grid grid-cols-2 gap-5 mt-10">
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded"
+                onClick={() => {
+                  handleDelete(selectedProduct._id as string);
+                  setDeleteModalOpen(false);
+                }}
+              >
+                Confirm
+              </button>
+              <button
+                className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
+                onClick={() => setDeleteModalOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </Modal>
       )}
