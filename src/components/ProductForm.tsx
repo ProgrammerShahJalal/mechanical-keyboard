@@ -34,7 +34,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]:
+        name === "price" || name === "availableQuantity" || name === "rating"
+          ? parseFloat(value)
+          : value,
     }));
   };
 
