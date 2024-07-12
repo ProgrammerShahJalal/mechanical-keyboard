@@ -43,6 +43,7 @@ const Dashboard = () => {
         <ProductForm onSubmit={handleCreate} />
       </div>
       <div className="overflow-x-auto">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4">Products List</h2>
         <table className="w-full border">
           <thead>
             <tr>
@@ -55,10 +56,16 @@ const Dashboard = () => {
           <tbody>
             {products?.data?.map((product: UpdatedProduct) => (
               <tr key={product._id}>
-                <td className="border px-2 sm:px-4 py-2">{product.name}</td>
-                <td className="border px-2 sm:px-4 py-2">{product.brand}</td>
-                <td className="border px-2 sm:px-4 py-2">${product.price}</td>
-                <td className="border px-2 sm:px-4 py-2">
+                <td className="border px-2 sm:px-4 py-2 text-center">
+                  {product.name}
+                </td>
+                <td className="border px-2 sm:px-4 py-2 text-center">
+                  {product.brand}
+                </td>
+                <td className="border px-2 sm:px-4 py-2 text-center">
+                  ${product.price}
+                </td>
+                <td className="border px-2 sm:px-4 py-2 text-center">
                   <button
                     className="bg-yellow-500 text-white px-2 sm:px-4 py-1 sm:py-2 rounded mr-2"
                     onClick={() => {
