@@ -158,6 +158,35 @@ const Checkout = () => {
           />
           <label>Stripe</label>
         </div>
+        <div className="flex items-center">
+          {paymentMethod === "stripe" ? (
+            <h2>
+              During Stripe payment processing, you may encounter a brief
+              message warning about a{" "}
+              <span className="font-bold text-lg text-pink-500">
+                Page Refresh
+              </span>
+              . This is a normal security measure by Stripe and can be safely
+              ignored. The refresh is an essential part of the secure
+              transaction process. If a pop-up appears with options like{" "}
+              <span className="font-bold text-green-600 text-lg">
+                "Reload," "Ok," or "Confirm"
+              </span>
+              , please click to continue.{" "}
+              <span className="font-bold text-lg">
+                We display these warnings when your cart isn't empty to prevent
+                any data loss. As your order is already placed, your checkout
+                information is secure.
+              </span>{" "}
+              <span className="font-bold text-lg text-green-600">
+                As your order is already placed, your checkout information is
+                secure.
+              </span>
+            </h2>
+          ) : (
+            <h2>dont</h2>
+          )}
+        </div>
       </div>
       <div className="text-right mt-8">
         <h3 className="text-xl font-bold mb-4">
