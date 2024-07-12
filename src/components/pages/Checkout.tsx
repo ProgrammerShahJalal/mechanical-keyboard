@@ -34,8 +34,18 @@ const Checkout = () => {
       return;
     }
 
+    if (
+      !userDetails.name ||
+      !userDetails.email ||
+      !userDetails.phone ||
+      !userDetails.address
+    ) {
+      alert("Please fill in all user details.");
+      return;
+    }
+
     const orderData = {
-      cartItems,
+      cartItems: cartItems.map((item) => ({ ...item, product: item._id })),
       userDetails,
       paymentMethod,
       totalAmount: totalPrice,

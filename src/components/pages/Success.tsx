@@ -16,7 +16,7 @@ const Success = () => {
       </h2>
       <h3 className="text-3xl md:text-4xl font-bold my-4">🏆🎯💎</h3>
       <p className="font-semibold text-lg text-center">
-        Your form has been submitted successfully.
+        Yeah! It has been submitted successfully.
       </p>
     </div>
   );
