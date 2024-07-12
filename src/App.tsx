@@ -1,4 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -13,6 +16,28 @@ import ContactUs from "./components/pages/ContactUs";
 import Success from "./components/pages/Success";
 
 const App = () => {
+  //PAGE REFRESH WARNING
+  const cartItemCount = useSelector(
+    (state: RootState) => state.cart.items.length
+  );
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (cartItemCount > 0) {
+        const message = "If you refresh, the cart items will be removed!";
+        event.preventDefault();
+        event.returnValue = message;
+        return message;
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [cartItemCount]);
+
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
