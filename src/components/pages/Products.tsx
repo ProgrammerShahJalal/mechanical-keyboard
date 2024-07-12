@@ -1,23 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetProductsQuery } from "../../redux/api/productApi";
+import { addToCart, updateCartQuantity } from "../../redux/features/cartSlice";
 import { Product } from "../utils/interfaces";
-import { MdStar, MdStarHalf, MdStarBorder } from "react-icons/md";
-import { MdClear } from "react-icons/md";
+import { MdStar, MdStarHalf, MdStarBorder, MdClear } from "react-icons/md";
 import { Button } from "antd";
+import { RootState } from "../../redux/store";
 import { useDebounce } from "../hooks/useDebounce";
 
 const Products = () => {
+  const dispatch = useDispatch();
   const { data: products, error, isLoading } = useGetProductsQuery(undefined);
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 300); // Debounce delay set to 300ms
   const [priceFilter, setPriceFilter] = useState({ min: 0, max: Infinity });
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+
   // To ensure that the page loads from the top when navigating to the page
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Handle adding product to cart
+  const handleAddToCart = (product: Product) => {
+    const { _id, availableQuantity } = product;
+    const cartItem = cartItems.find((item) => item._id === _id);
+
+    if (cartItem) {
+      const newQuantity = cartItem.quantity + 1;
+      if (newQuantity <= availableQuantity) {
+        dispatch(updateCartQuantity({ id: _id, quantity: newQuantity }));
+      } else {
+        alert("Cannot add more than available quantity!");
+      }
+    } else {
+      if (1 <= availableQuantity) {
+        dispatch(addToCart(product));
+      } else {
+        alert("Cannot add more than available quantity!");
+      }
+    }
+  };
 
   // HANDLE SEARCH FUNCTIONALITY WITH DEBOUNCE
   const filteredProducts = products?.data?.filter((product: Product) => {
@@ -197,30 +223,55 @@ const Products = () => {
 
       {/* PRODUCT CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {sortedProducts.map((product: Product) => (
-          <div key={product._id} className="bg-white p-4 shadow rounded">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover mb-4"
-            />
-            <h3 className="text-xl font-bold">{product.name}</h3>
-            <p>Brand: {product.brand}</p>
-            <p>Available Quantity: {product.availableQuantity}</p>
-            <p>Price: ${product.price}</p>
-            <div className="flex items-center">
-              {renderStars(product.rating)}
-              <span className="ml-2 text-lg font-semibold">
-                ({product.rating.toFixed(1)})
-              </span>
+        {sortedProducts.map((product: Product) => {
+          const cartItem = cartItems.find((item) => item._id === product._id);
+          const isInCart = !!cartItem;
+          const isOutOfStock = product.availableQuantity === 0;
+          const isDisabled = isOutOfStock || isInCart;
+          const buttonText = isInCart
+            ? "Already in Cart"
+            : isOutOfStock
+            ? "Out of Stock"
+            : "Add to Cart";
+
+          return (
+            <div key={product._id} className="bg-white p-4 shadow rounded">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-48 object-cover mb-4"
+              />
+              <h3 className="text-xl font-bold">{product.name}</h3>
+              <p>Brand: {product.brand}</p>
+              <p>Available Quantity: {product.availableQuantity}</p>
+              <p>Price: ${product.price}</p>
+              <div className="flex items-center">
+                {renderStars(product.rating)}
+                <span className="ml-2 text-lg font-semibold">
+                  ({product.rating.toFixed(1)})
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <Link to={`/products/${product._id}`}>
+                  <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+                    Show Details
+                  </button>
+                </Link>
+                <button
+                  className={`mt-4 w-36 px-2 py-2 rounded ${
+                    isDisabled
+                      ? "bg-gray-500 cursor-not-allowed"
+                      : "bg-green-500 text-white"
+                  }`}
+                  onClick={() => !isDisabled && handleAddToCart(product)}
+                  disabled={isDisabled}
+                >
+                  {buttonText}
+                </button>
+              </div>
             </div>
-            <Link to={`/products/${product._id}`}>
-              <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
-                Show Details
-              </button>
-            </Link>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
