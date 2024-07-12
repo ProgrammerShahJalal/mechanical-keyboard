@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+
 const Success = () => {
+  // To ensure that the page loads from the top when navigating to the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 pb-10">
       <lottie-player

@@ -65,7 +65,7 @@ const Dashboard = () => {
                 <td className="border px-2 sm:px-4 py-2 text-center">
                   ${product.price}
                 </td>
-                <td className="border px-2 sm:px-4 py-2 text-center">
+                <td className="border px-2 sm:px-4 py-2 flex justify-between md:justify-center items-center gap-1 md:gap-8">
                   <button
                     className="bg-yellow-500 text-white px-2 sm:px-4 py-1 sm:py-2 rounded mr-2"
                     onClick={() => {
@@ -93,7 +93,7 @@ const Dashboard = () => {
       {isUpdateModalOpen && selectedProduct && (
         <Modal onClose={() => setUpdateModalOpen(false)}>
           <ProductForm
-            initialData={selectedProduct} // Pass the initialData prop here
+            initialData={selectedProduct} // Passing the initialData prop here
             onSubmit={(data) => {
               handleUpdate(data);
               setUpdateModalOpen(false);

@@ -19,12 +19,10 @@ const Products = () => {
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  // To ensure that the page loads from the top when navigating to the page
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Handle adding product to cart
   const handleAddToCart = (product: Product) => {
     const { _id, availableQuantity } = product;
     const cartItem = cartItems.find((item) => item._id === _id);
@@ -38,14 +36,13 @@ const Products = () => {
       }
     } else {
       if (1 <= availableQuantity) {
-        dispatch(addToCart(product));
+        dispatch(addToCart({ ...product, quantity: 1 }));
       } else {
         alert("Cannot add more than available quantity!");
       }
     }
   };
 
-  // HANDLE SEARCH FUNCTIONALITY WITH DEBOUNCE
   const filteredProducts = products?.data?.filter((product: Product) => {
     const nameMatches = product.name
       .toLowerCase()
@@ -56,7 +53,6 @@ const Products = () => {
     return nameMatches || brandMatches;
   });
 
-  // LOADING ANIMATION FOR PRODUCT FETCHING
   if (isLoading) {
     return (
       <div className="grid gap-1 grid-cols-1 justify-items-center">
@@ -75,7 +71,6 @@ const Products = () => {
     );
   }
 
-  // ERROR HANDLING
   if (error) {
     return (
       <div className="grid gap-1 grid-cols-1 justify-items-center">
@@ -90,7 +85,6 @@ const Products = () => {
     );
   }
 
-  // NO PRODUCT AVAILABLE MESSAGE
   if (!filteredProducts?.length) {
     return (
       <div>
@@ -101,12 +95,10 @@ const Products = () => {
     );
   }
 
-  // HANDLE PRICE FILTER FUNCTIONALITY
   const priceFilteredProducts = filteredProducts.filter((product: Product) => {
     return product.price >= priceFilter.min && product.price <= priceFilter.max;
   });
 
-  // HANDLE SORTING FUNCTIONALITY
   const sortedProducts = priceFilteredProducts.sort(
     (a: Product, b: Product) => {
       if (sortOrder === "asc") {
@@ -117,7 +109,6 @@ const Products = () => {
     }
   );
 
-  // RATING REPRESENTATION FOR FULL, PARTIAL, HALF, ALMOST FULL, EMPTY STAR
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
     const partialStar = rating % 1;
@@ -144,7 +135,6 @@ const Products = () => {
     );
   };
 
-  // Handle input change for minimum price filter
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= 0) {
@@ -152,7 +142,6 @@ const Products = () => {
     }
   };
 
-  // Handle input change for maximum price filter
   const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= 0) {
@@ -165,7 +154,6 @@ const Products = () => {
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
         Products
       </h2>
-      {/* SEARCH BAR */}
       <div className="mb-4">
         <input
           type="text"
@@ -176,7 +164,6 @@ const Products = () => {
         />
       </div>
 
-      {/* FILTERS */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
         <div className="mb-4 sm:mb-0 sm:flex">
           <div className="mr-4">
@@ -221,7 +208,6 @@ const Products = () => {
         </div>
       </div>
 
-      {/* PRODUCT CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {sortedProducts.map((product: Product) => {
           const cartItem = cartItems.find((item) => item._id === product._id);

@@ -28,7 +28,6 @@ const cartSlice = createSlice({
         if (newQuantity <= availableStock) {
           item.quantity = newQuantity;
         } else {
-          // Handle exceeding stock scenario (e.g., show an error message)
           console.error("Cannot add more items than available stock");
         }
       } else {
@@ -36,7 +35,7 @@ const cartSlice = createSlice({
         if (newQuantity <= availableStock) {
           state.items.push({ ...action.payload, quantity: newQuantity });
         } else {
-          // Handle exceeding stock scenario (e.g., show an error message)
+          console.error("Cannot add more items than available stock");
         }
       }
 

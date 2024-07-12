@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
 import { clearCart } from "../../redux/features/cartSlice";
 import { usePlaceOrderMutation } from "../../redux/features/orderSlice";
+import { OrderData } from "../utils/interfaces";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -44,19 +46,48 @@ const Checkout = () => {
       return;
     }
 
-    const orderData = {
-      cartItems: cartItems.map((item) => ({ ...item, product: item._id })),
+    const orderData: OrderData = {
+      cartItems: cartItems.map((item) => ({
+        product: item._id,
+        quantity: item.quantity,
+      })),
       userDetails,
       paymentMethod,
       totalAmount: totalPrice,
     };
 
     try {
-      await placeOrder(orderData).unwrap();
-      // Clear cart
-      dispatch(clearCart());
-      // Redirect to success page
-      navigate("/success");
+      const { data } = await placeOrder(orderData).unwrap();
+
+      if (paymentMethod === "stripe") {
+        const stripe = await loadStripe(
+          "pk_test_51JwIBsFBTfTsSwmz8bqtyXmnIOlnITi40PZxeH94CVw4gw41R2R6chUyOdKef9J0CCNKuB22rOlGeVlfUcS2L9Nf008TuoJ83R"
+        );
+        if (!stripe) {
+          console.error("Failed to load Stripe.");
+          alert("Failed to load Stripe. Please try again later.");
+          return;
+        }
+
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: data.sessionId, // Ensure this matches the key from backend
+        });
+
+        if (error) {
+          console.error("Error redirecting to checkout:", error);
+          alert("Failed to redirect to Stripe Checkout. Please try again.");
+        } else {
+          // Clear cart
+          dispatch(clearCart());
+          // Redirect to success page if Stripe payment succeeds
+          navigate("/success");
+        }
+      } else {
+        // Clear cart for other payment methods
+        dispatch(clearCart());
+        // Redirect to success page
+        navigate("/success");
+      }
     } catch (error) {
       console.error("Order failed:", error);
       alert("Order placement failed. Please try again.");

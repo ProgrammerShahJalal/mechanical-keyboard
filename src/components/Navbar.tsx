@@ -23,19 +23,34 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="hidden md:flex space-x-4">
-        <Link to="/" className="hover:underline">
+        <Link
+          to="/"
+          className="hover:text-green-500 active:text-purple-500 font-medium"
+        >
           Home
         </Link>
-        <Link to="/products" className="hover:underline">
+        <Link
+          to="/products"
+          className="hover:text-green-500 active:text-purple-500 font-medium"
+        >
           Products
         </Link>
-        <Link to="/about" className="hover:underline">
+        <Link
+          to="/about"
+          className="hover:text-green-500 active:text-purple-500 font-medium"
+        >
           About Us
         </Link>
-        <Link to="/contact" className="hover:underline">
+        <Link
+          to="/contact"
+          className="hover:text-green-500 active:text-purple-500 font-medium"
+        >
           Contact Us
         </Link>
-        <Link to="/dashboard" className="hover:underline">
+        <Link
+          to="/dashboard"
+          className="hover:text-green-500 active:text-purple-500 font-medium"
+        >
           Dashboard
         </Link>
         <Link to="/cart" className="relative hover:underline">
@@ -54,7 +69,10 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="md:hidden">
-        <button onClick={toggleMenu} className="text-black hover:text-gray-700">
+        <button
+          onClick={toggleMenu}
+          className="text-black hover:text-green-700"
+        >
           <svg
             className="w-6 h-6"
             fill="none"
@@ -74,38 +92,38 @@ const Navbar = () => {
       {menuOpen && (
         <div className="md:hidden absolute top-16 right-0 bg-white shadow-md z-50">
           <div className="flex flex-col items-center space-y-4 p-4">
-            <Link to="/" className="hover:underline" onClick={toggleMenu}>
+            <Link to="/" className="hover:text-green-500" onClick={toggleMenu}>
               Home
             </Link>
             <Link
               to="/products"
-              className="hover:underline"
+              className="hover:text-green-500"
               onClick={toggleMenu}
             >
               Products
             </Link>
-            <Link to="/about" className="hover:underline" onClick={toggleMenu}>
+            <Link
+              to="/about"
+              className="hover:text-green-500"
+              onClick={toggleMenu}
+            >
               About Us
             </Link>
             <Link
               to="/contact"
-              className="hover:underline"
+              className="hover:text-green-500"
               onClick={toggleMenu}
             >
               Contact Us
             </Link>
             <Link
               to="/dashboard"
-              className="hover:underline"
+              className="hover:text-green-500"
               onClick={toggleMenu}
             >
               Dashboard
             </Link>
-            <Link
-              to="/cart"
-              className="relative hover:underline"
-              onClick={toggleMenu}
-            >
+            <Link to="/cart" className="relative" onClick={toggleMenu}>
               <img
                 width={32}
                 height={32}
