@@ -259,7 +259,7 @@ const Products = () => {
                   className={`mt-4 w-36 px-2 py-2 rounded ${
                     isDisabled
                       ? "bg-gray-500 cursor-not-allowed"
-                      : "bg-green-500 text-white"
+                      : "bg-green-600 text-white"
                   }`}
                   onClick={() => !isDisabled && handleAddToCart(product)}
                   disabled={isDisabled}

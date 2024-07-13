@@ -14,6 +14,7 @@ import Dashboard from "./components/pages/Dashboard";
 import AboutUs from "./components/pages/AboutUs";
 import ContactUs from "./components/pages/ContactUs";
 import Success from "./components/pages/Success";
+import NotFound from "./components/pages/NotFound";
 
 const App = () => {
   //PAGE REFRESH WARNING
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
