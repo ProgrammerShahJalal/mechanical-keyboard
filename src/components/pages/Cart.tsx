@@ -7,7 +7,7 @@ import {
   updateCartQuantity,
 } from "../../redux/features/cartSlice";
 import { RootState } from "../../redux/store";
-
+import emptyCartImg from "../../assets/icon-empty-cart-min.png";
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -29,7 +29,7 @@ const Cart = () => {
         <img
           width={160}
           height={160}
-          src="https://i.ibb.co/MNdqpvP/icon-empty-cart.png"
+          src={emptyCartImg}
           alt="empty-cart-icon"
         />
         <h1 className="md:text-3xl text-base font-semibold">

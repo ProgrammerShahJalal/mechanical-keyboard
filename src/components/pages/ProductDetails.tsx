@@ -114,11 +114,20 @@ const ProductDetails = () => {
         />
         <div className="md:ml-8">
           <h2 className="text-2xl font-bold mb-2">{name}</h2>
-          <p className="mb-2">Brand: {brand}</p>
-          <p className="mb-2">Available Quantity: {availableQuantity}</p>
-          <p className="mb-2">Price: ${price}</p>
+          <p className="mb-2">
+            <span className="font-semibold">Brand:</span> {brand}
+          </p>
+          <p className="mb-2">
+            <span className="font-semibold">Available Quantity:</span>{" "}
+            {availableQuantity}
+          </p>
+          <p className="mb-2">
+            <span className="font-semibold">Price:</span> ${price}
+          </p>
           <div className="flex items-center mb-2">
-            <span className="mr-1">Rating:</span>
+            <span className="mr-1">
+              <span className="font-semibold">Rating:</span>
+            </span>
             {renderStars(rating)}
             <span className="ml-2 text-lg font-semibold">
               ({rating.toFixed(1)})
