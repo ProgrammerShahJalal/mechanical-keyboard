@@ -16,6 +16,8 @@ const Products = () => {
   const debouncedSearchTerm = useDebounce(searchTerm, 300); // Debounce delay set to 300ms
   const [priceFilter, setPriceFilter] = useState({ min: 0, max: Infinity });
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
@@ -85,7 +87,7 @@ const Products = () => {
     );
   }
 
-  if (!filteredProducts?.length) {
+  if (!products?.data?.length) {
     return (
       <div>
         <p className="text-center my-10">
@@ -108,6 +110,16 @@ const Products = () => {
       }
     }
   );
+
+  // Pagination logic
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProducts = sortedProducts.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
@@ -209,7 +221,7 @@ const Products = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {sortedProducts.map((product: Product) => {
+        {currentProducts.map((product: Product) => {
           const cartItem = cartItems.find((item) => item._id === product._id);
           const isInCart = !!cartItem;
           const isOutOfStock = product.availableQuantity === 0;
@@ -258,6 +270,23 @@ const Products = () => {
             </div>
           );
         })}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-8">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            className={`px-4 py-2 mx-1 ${
+              currentPage === index + 1
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
+            } rounded`}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
       </div>
     </div>
   );
