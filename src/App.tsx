@@ -15,6 +15,7 @@ import AboutUs from "./components/pages/AboutUs";
 import ContactUs from "./components/pages/ContactUs";
 import Success from "./components/pages/Success";
 import NotFound from "./components/pages/NotFound";
+import Cancel from "./components/pages/Cancel";
 
 const App = () => {
   //PAGE REFRESH WARNING
@@ -54,6 +55,7 @@ const App = () => {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/cancel" element={<Cancel />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </main>
