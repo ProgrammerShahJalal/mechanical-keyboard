@@ -159,7 +159,7 @@ const Checkout = () => {
           <label>Stripe</label>
         </div>
         <div className="flex items-center">
-          {paymentMethod === "stripe" ? (
+          {paymentMethod === "stripe" && (
             <h2>
               During Stripe payment processing, you may encounter a brief
               message warning about a{" "}
@@ -183,8 +183,6 @@ const Checkout = () => {
                 secure.
               </span>
             </h2>
-          ) : (
-            <h2>dont</h2>
           )}
         </div>
       </div>

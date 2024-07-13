@@ -20,6 +20,11 @@ export interface UpdatedProduct {
   image: string;
   brand: string;
 }
+export interface ProductFormProps {
+  initialData?: UpdatedProduct;
+  onSubmit: (data: UpdatedProduct) => void;
+  closeModal: () => void; // Add closeModal to the interface
+}
 
 export interface ProductFormProps {
   onSubmit: (data: UpdatedProduct) => void;

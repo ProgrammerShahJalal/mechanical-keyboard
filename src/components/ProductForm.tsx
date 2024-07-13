@@ -1,24 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { ProductFormProps, UpdatedProduct } from "./utils/interfaces";
 import {
   useCreateProductMutation,
+  useGetProductsQuery,
   useUpdateProductMutation,
 } from "../redux/api/productApi";
+import { toast } from "sonner";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 
-const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
+const ProductForm: React.FC<ProductFormProps> = ({
+  initialData,
+  closeModal,
+}) => {
+  const { refetch } = useGetProductsQuery(undefined);
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState<UpdatedProduct>({
     _id: "",
     name: "",
     price: 0,
     description: "",
-    availableQuantity: 0,
-    rating: 0,
+    availableQuantity: 1,
+    rating: 4.5,
     image: "",
     brand: "",
   });
 
-  const navigate = useNavigate();
   const [createProduct] = useCreateProductMutation();
   const [updateProduct] = useUpdateProductMutation();
 
@@ -43,6 +50,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     if (formData._id) {
       // Update product
       await updateProduct({ id: formData._id, ...formData });
@@ -50,7 +58,16 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       // Create new product
       await createProduct(formData);
     }
-    navigate("/success"); // Navigate to the success page after submission
+    refetch();
+    setLoading(false);
+    closeModal();
+
+    toast("Success!", {
+      className: "border-green-500 text-base",
+      description: "Product Successfully Saved!",
+      duration: 3000,
+      icon: <IoCheckmarkDoneCircleOutline />,
+    });
   };
 
   return (
@@ -60,6 +77,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         <input
           type="text"
           name="name"
+          required
           value={formData.name}
           onChange={handleChange}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
@@ -70,7 +88,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         <input
           type="number"
           name="price"
+          required
           value={formData.price}
+          min={0}
+          max={Infinity}
+          step={0.01}
           onChange={handleChange}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
@@ -79,9 +101,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         <label className="block text-sm font-medium">Description</label>
         <textarea
           name="description"
+          required
           value={formData.description}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
+          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <div>
@@ -89,7 +112,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         <input
           type="number"
           name="availableQuantity"
+          required
           value={formData.availableQuantity}
+          min={0}
+          max={Infinity}
           onChange={handleChange}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
@@ -99,16 +125,21 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         <input
           type="number"
           name="rating"
+          required
           value={formData.rating}
+          min={1.0}
+          max={5.0}
+          step={0.5}
           onChange={handleChange}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium">Image</label>
+        <label className="block text-sm font-medium">Image URL</label>
         <input
           type="text"
           name="image"
+          required
           value={formData.image}
           onChange={handleChange}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
@@ -119,6 +150,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         <input
           type="text"
           name="brand"
+          required
           value={formData.brand}
           onChange={handleChange}
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"
@@ -126,9 +158,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       </div>
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        disabled={loading}
       >
-        {initialData ? "Update Product" : "Create Product"}
+        {loading ? "Saving..." : "Save Product"}
       </button>
     </form>
   );
