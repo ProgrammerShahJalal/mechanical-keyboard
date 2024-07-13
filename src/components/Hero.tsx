@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
 const Hero = () => {
   return (
@@ -10,15 +11,16 @@ const Hero = () => {
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-24 flex flex-col md:flex-row items-center gap-x-10">
         <div className="flex-1 text-center md:text-left p-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Welcome to{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-500">
-              MK SHOP
-            </span>
-          </h1>
+          <TextGenerateEffect
+            words="Craft Your Words. Click by Click."
+            className="text-center md:text-left text-[40px] md:text-3xl lg:text-6xl"
+          />
           <p className="text-lg md:text-xl text-gray-700 mb-6">
-            Discover the best mechanical keyboards designed for enthusiasts and
-            professionals.
+            Discover the best{" "}
+            <span className="text-purple-600 font-semibold">
+              Mechanical Keyboards
+            </span>{" "}
+            designed for enthusiasts and professionals.
           </p>
           <Link
             to="/products"
