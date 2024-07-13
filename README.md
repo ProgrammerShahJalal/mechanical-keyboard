@@ -6,7 +6,7 @@ This is the Mechanical Keyboard Shop Frontend built with React.js, Redux-toolkit
 
 ## Server Link: https://mechanical-keyboard-shop-backend.vercel.app
 
-## Project Overview Video 📽️ Link:
+## Project Overview Video 📽️ Link: https://youtu.be/xStVrogNsa4
 
 ## Technologies Used
 
