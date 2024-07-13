@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
+import heroBg from "../assets/bg.png";
+import heroImg from "../assets/heroImg.png";
 
 const Hero = () => {
   return (
     <section
       className="bg-cover bg-center py-20"
       style={{
-        backgroundImage: "url(https://i.ibb.co/s3KhwTF/bg.png)",
+        backgroundImage: `url(${heroBg})`,
       }}
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-24 flex flex-col md:flex-row items-center gap-x-10">
@@ -31,7 +33,7 @@ const Hero = () => {
         </div>
         <div className="flex-1 mt-10 md:mt-0">
           <img
-            src="https://i.ibb.co/ZVpXhbB/hero-image-gallay.png"
+            src={heroImg}
             alt="Mechanical Keyboard"
             className="w-96 h-auto rounded-md shadow-md"
           />

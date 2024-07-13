@@ -4,10 +4,12 @@ import { FaKeyboard, FaCogs, FaGamepad, FaCode } from "react-icons/fa";
 import useMultipleInView from "./hooks/useMultipleInView";
 
 const WhyChooseMechanicalKeyboards = () => {
-  const titleRef = React.useRef(null);
+  const titleRef = React.useRef<HTMLHeadingElement>(null);
   const titleInView = useInView(titleRef, { once: true });
 
-  const [paragraphRefs, paragraphsInView] = useMultipleInView(8);
+  // Use multiple in view with the correct type for paragraph elements
+  const [paragraphRefs, paragraphsInView] =
+    useMultipleInView<HTMLParagraphElement>(8);
 
   return (
     <section className="container mx-auto p-8 mt-10 relative">

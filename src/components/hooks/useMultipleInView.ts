@@ -1,27 +1,40 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useRef, useState, useEffect } from "react";
-import { useInView } from "framer-motion";
+import { useEffect, useRef, useState, RefObject } from "react";
 
-const useMultipleInView = (count: number) => {
-  const refs = Array.from({ length: count }, () =>
-    useRef<HTMLParagraphElement>(null)
+function useMultipleInView<T extends HTMLElement>(
+  count: number
+): [RefObject<T>[], boolean[]] {
+  const refs = Array.from({ length: count }, () => useRef<T>(null));
+  const [inViewStates, setInViewStates] = useState<boolean[]>(
+    Array(count).fill(false)
   );
-  const [inView, setInView] = useState(Array(count).fill(false));
 
-  refs.forEach((ref, index) => {
-    const inViewStatus = useInView(ref, { once: true });
-    useEffect(() => {
-      if (inViewStatus) {
-        setInView((prev) => {
-          const newInView = [...prev];
-          newInView[index] = true;
-          return newInView;
-        });
+  useEffect(() => {
+    refs.forEach((ref, index) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setInViewStates((prev) => {
+            const newState = [...prev];
+            newState[index] = entry.isIntersecting;
+            return newState;
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      if (ref.current) {
+        observer.observe(ref.current);
       }
-    }, [inViewStatus, index]);
-  });
 
-  return [refs, inView] as const;
-};
+      return () => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      };
+    });
+  }, [refs]);
+
+  return [refs, inViewStates];
+}
 
 export default useMultipleInView;

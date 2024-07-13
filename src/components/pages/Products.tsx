@@ -75,7 +75,7 @@ const Products = () => {
 
   if (error) {
     return (
-      <div className="grid gap-1 grid-cols-1 justify-items-center">
+      <div className="grid gap-1 grid-cols-1 justify-items-center my-10">
         <p className="text-center">
           🤖
           <br />

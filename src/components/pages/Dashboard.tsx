@@ -136,7 +136,7 @@ const Dashboard = () => {
                       </td>
                       <td className="border px-2 sm:px-4 py-2 flex justify-between md:justify-center items-center gap-1 md:gap-8">
                         <button
-                          className="bg-yellow-500 text-white px-2 sm:px-4 py-1 sm:py-2 rounded mr-2"
+                          className="bg-lime-500 text-white px-2 sm:px-4 py-1 sm:py-2 rounded mr-2"
                           onClick={() => {
                             setSelectedProduct(product);
                             setUpdateModalOpen(true);

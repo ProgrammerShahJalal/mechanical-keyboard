@@ -13,9 +13,9 @@ const CustomizableOptions = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const titleInView = useInView(titleRef, { once: true });
 
-  // Use multiple in view for both list items and paragraph
-  const [liRefs, liInView] = useMultipleInView(5); // Adjust the count to match the number of list items
-  const [pRefs, pInView] = useMultipleInView(1); // For the single paragraph
+  // Use multiple in view for both list items and paragraph with the correct types
+  const [liRefs, liInView] = useMultipleInView<HTMLLIElement>(5); // Adjust the count to match the number of list items
+  const [pRefs, pInView] = useMultipleInView<HTMLParagraphElement>(1); // For the single paragraph
 
   return (
     <section className="container mx-auto p-8 my-10">
