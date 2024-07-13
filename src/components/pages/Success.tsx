@@ -12,7 +12,7 @@ const Success = () => {
         src="https://lottie.host/4a282b5f-59f8-4f64-a525-89a052a5d903/AdWFIHO3d6.json"
         background="##FFFFFF"
         speed="1"
-        style={{ width: "300px", height: "300px" }}
+        style={{ width: "200px", height: "200px" }}
         loop
         autoplay
         direction="1"
@@ -23,7 +23,7 @@ const Success = () => {
       </h2>
       <h3 className="text-3xl md:text-4xl font-bold my-4">🏆🎯💎</h3>
       <p className="font-semibold text-lg text-center">
-        Yeah! It has been submitted successfully.
+        Your Order Placed successfully.
       </p>
     </div>
   );

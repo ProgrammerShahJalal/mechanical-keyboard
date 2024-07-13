@@ -1,0 +1,23 @@
+[
+  {
+    "id": "service-1",
+    "icon": "FaShippingFast",
+    "name": "Free Shipping",
+    "sub": "Enjoy free shipping on all orders with no minimum purchase required.",
+    "description": "Take advantage of our free shipping policy on all your orders, regardless of the amount. Shop freely without worrying about any additional shipping costs, ensuring a seamless shopping experience from start to finish."
+  },
+  {
+    "id": "service-2",
+    "icon": "FaDollarSign",
+    "name": "Lowest Delivery Charge",
+    "sub": "We offer the lowest delivery charges for fast and reliable service.",
+    "description": "Benefit from our commitment to providing the lowest delivery charges in the market. Our efficient and reliable delivery service ensures your purchases reach you quickly without breaking the bank."
+  },
+  {
+    "id": "service-3",
+    "icon": "FaHeadset",
+    "name": "24/7 Support",
+    "sub": "Our support team is available 24/7 to assist you with any queries.",
+    "description": "Get round-the-clock assistance from our dedicated support team. Whether you have questions about our products, need help with your order, or have any other concerns, we are here to help anytime, day or night."
+  }
+]
